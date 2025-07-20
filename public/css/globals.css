@@ -1,0 +1,545 @@
+main {
+  margin: 0 auto;
+  min-height: 100dvh;
+  max-width: 1024px;
+  border-inline-width: 1px;
+  border-inline-style: solid;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+main .table-management {
+  display: flex;
+  justify-content: space-between;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+main .table-container {
+  background-color: var(--color-secondary);
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 0.375rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomIn95 {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes zoomOut95 {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOutToTop {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+}
+@keyframes slideOutToBottom {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+}
+.c-select {
+  position: relative;
+}
+.c-select__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  background-color: var(--color-muted);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  transition: color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+.c-select__trigger:focus-visible {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 0 0 3px color-mix(in oklab, var(--color-ring) 50%, transparent);
+}
+.c-select__trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.c-select__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-foreground);
+}
+.c-select__value.is-placeholder {
+  color: var(--color-muted-foreground);
+}
+.c-select__icon {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  opacity: 0.5;
+  transition: transform 0.2s ease;
+}
+.c-select.is-open .c-select__icon {
+  transform: rotate(180deg);
+}
+.c-select__content {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  width: 100%;
+  overflow-y: auto;
+  padding: 0.25rem;
+  list-style: none;
+  background-color: var(--color-popover);
+  color: var(--color-popover-foreground);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transform-origin: top;
+  display: none;
+}
+.c-select.is-open .c-select__content {
+  display: block;
+  animation: slideInFromTop 0.2s ease-out;
+}
+.c-select__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+.c-select__item:hover, .c-select__item:focus-visible {
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+.c-select__item.is-selected {
+  background-color: var(--color-muted);
+}
+.c-select__item.is-disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.c-select__separator {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 0.25rem -0.25rem;
+}
+
+.draggable {
+  position: relative;
+  background-color: var(--color-background);
+  width: 100%;
+  height: 100px;
+  overflow-x: auto;
+  border-radius: var(--radius-xl);
+  cursor: grab;
+  border-width: 1px;
+  border-style: solid;
+  scrollbar-width: none;
+}
+.draggable::-webkit-scrollbar {
+  display: none;
+}
+
+.draggable.is-grabbing {
+  cursor: grabbing;
+}
+
+.c-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  user-select: none;
+}
+.c-table th {
+  border-bottom: 1px solid var(--color-border);
+}
+.c-table td {
+  border-color: var(--color-border);
+}
+.c-table tr:not(:last-child) td {
+  border-bottom: 1px solid var(--color-border);
+}
+.c-table__sticky-cell {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background-color: color-mix(in oklab, var(--color-background) 90%, transparent);
+  backdrop-filter: blur(8px);
+}
+.c-table__sticky-cell, .c-table__sticky-cell + td {
+  border-right: 1px solid var(--color-border);
+}
+thead tr .c-table__sticky-cell {
+  top: 0;
+  z-index: 20;
+}
+.c-table__sticky-cell-content {
+  width: 200px;
+  padding: 1rem;
+}
+.c-table__day-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0 0.125rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-secondary);
+}
+.c-table__day-header span {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.c-table__day-header.is-today {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+th:nth-child(2) .c-table__day-header {
+  margin-left: 1rem;
+}
+th:last-child .c-table__day-header {
+  margin-right: 1rem;
+}
+
+.c-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.c-tabs__list {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  height: auto;
+  width: fit-content;
+  padding-block: 4px;
+  color: var(--color-foreground);
+}
+.c-tabs__trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: 1;
+  height: calc(100% - 1px);
+  padding: 0.375rem 0.75rem;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-muted-foreground);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background-color: transparent;
+  transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.c-tabs__trigger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-bottom: -0.375rem;
+  height: 3px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  background-color: transparent;
+}
+.c-tabs__trigger:hover {
+  color: var(--color-foreground);
+  background-color: var(--color-secondary);
+}
+.c-tabs__trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 50%, transparent);
+}
+.c-tabs__trigger.is-active {
+  color: var(--color-foreground);
+}
+.c-tabs__trigger.is-active::after {
+  background-color: var(--color-primary);
+}
+.c-tabs__trigger:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.c-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: fit-content;
+  padding: 1px 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  background-color: var(--color-secondary);
+  color: var(--color-muted-foreground);
+}
+
+.c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4286;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: 1px solid transparent;
+  outline: none;
+}
+.c-button:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.c-button svg {
+  pointer-events: none;
+  flex-shrink: 0;
+}
+.c-button:focus-visible {
+  border-color: var(--color-ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 50%, transparent);
+}
+.c-button--default {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.c-button--default:hover {
+  background-color: color-mix(in oklab, var(--color-primary) 90%, black);
+}
+.c-button--destructive {
+  background-color: color-mix(in oklab, var(--color-destructive) 70%, transparent);
+  color: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.c-button--destructive:hover {
+  background-color: color-mix(in oklab, var(--color-destructive) 80%, transparent);
+}
+.c-button--destructive:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-destructive) 20%, transparent);
+}
+.c-button--outline {
+  border-color: var(--color-border);
+  background-color: var(--color-background);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.c-button--outline:hover {
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+html.dark .c-button--outline {
+  border-color: var(--color-input);
+}
+.c-button--secondary {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-foreground);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.c-button--secondary:hover {
+  background-color: color-mix(in oklab, var(--color-secondary) 80%, transparent);
+}
+.c-button--ghost {
+  background-color: transparent;
+}
+.c-button--ghost:hover {
+  background-color: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+.c-button--link {
+  background-color: transparent;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.c-button--link:hover {
+  text-decoration: underline;
+}
+.c-button--default-size {
+  height: 2.25rem;
+  padding: 0.5rem 1rem;
+}
+.c-button--default-size:has(> svg) {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.c-button--sm-size {
+  height: 2rem;
+  border-radius: var(--radius-md);
+  gap: 0.375rem;
+  padding: 0 0.75rem;
+}
+.c-button--sm-size:has(> svg) {
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+.c-button--lg-size {
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  padding: 0 1.5rem;
+}
+.c-button--lg-size:has(> svg) {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.c-button--icon-size {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+}
+
+.c-manage-slots {
+  display: flex;
+  width: 100%;
+}
+.c-manage-slots__c-select {
+  flex-grow: 1;
+}
+.c-manage-slots__c-select .c-select__trigger {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+}
+.c-manage-slots .c-button {
+  border-radius: 0;
+  flex-shrink: 0;
+}
+.c-manage-slots .c-button:first-child {
+  border-top-left-radius: var(--radius-md);
+  border-bottom-left-radius: var(--radius-md);
+}
+.c-manage-slots .c-button:last-child {
+  border-top-right-radius: var(--radius-md);
+  border-bottom-right-radius: var(--radius-md);
+}
+
+:root {
+  --color-background: oklch(1 0 0);
+  --color-foreground: oklch(0.145 0 0);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.145 0 0);
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.145 0 0);
+  --color-primary: oklch(0.205 0 0);
+  --color-primary-foreground: oklch(0.985 0 0);
+  --color-secondary: oklch(0.97 0 0);
+  --color-secondary-foreground: oklch(0.205 0 0);
+  --color-muted: oklch(0.97 0 0);
+  --color-muted-foreground: oklch(0.556 0 0);
+  --color-accent: oklch(0.97 0 0);
+  --color-accent-foreground: oklch(0.205 0 0);
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-border: oklch(0.93 0 0);
+  --color-input: oklch(0.93 0 0);
+  --color-ring: oklch(0.708 0 0);
+  --font-sans: "Inter", sans-serif;
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+* {
+  border-color: var(--color-border);
+  outline-color: color-mix(in oklab, var(--color-ring) 50%, transparent);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+button,
+input {
+  font-family: inherit;
+  border: none;
+}
+
+/*# sourceMappingURL=globals.css.map */

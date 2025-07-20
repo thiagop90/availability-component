@@ -1,0 +1,78 @@
+.c-table {
+  width: 100%;
+  // Equivalente a 'border-separate border-spacing-0'
+  border-collapse: separate;
+  border-spacing: 0;
+  user-select: none;
+
+  // Estilos que eram aplicados com [&_th], [&_td], etc.
+  th {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  td {
+    border-color: var(--color-border);
+  }
+
+  tr:not(:last-child) td {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  // Célula estática e fixa à esquerda
+  &__sticky-cell {
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    background-color: color-mix(in oklab, var(--color-background) 90%, transparent);
+    backdrop-filter: blur(8px);
+
+    
+    // As células do header são th, as do body são td.
+    // Aplicamos a borda direita em ambos os casos.
+    &, + td {
+        border-right: 1px solid var(--color-border);
+    }
+    
+    // O cabeçalho da tabela também é fixo no topo
+    thead tr & {
+        top: 0;
+        z-index: 20; // Deve ter um z-index maior que o resto da linha
+    }
+  }
+
+  &__sticky-cell-content {
+      width: 200px;
+      padding: 1rem;
+  }
+
+  // Estilo para a caixinha de cada dia no cabeçalho
+  &__day-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;  // size-9
+    height: 2.25rem; // size-9
+    margin: 0 0.125rem; // mx-0.5
+    border-radius: var(--radius-md);
+    background-color: var(--color-secondary);
+
+    span {
+      font-size: 0.75rem; // text-xs
+      font-weight: 600;   // font-semibold
+    }
+
+    // Estilo especial para o dia de hoje
+    &.is-today {
+      background-color: var(--color-primary);
+      color: var(--color-primary-foreground);
+    }
+  }
+
+  // Margens especiais para o primeiro e último dia gerado
+  th:nth-child(2) &__day-header {
+    margin-left: 1rem; // ml-4
+  }
+  th:last-child &__day-header {
+    margin-right: 1rem; // mr-4
+  }
+}

@@ -1,0 +1,26 @@
+main {
+  margin: 0 auto;
+  min-height: 100dvh;
+  max-width: 1024px;
+  border-inline-width: 1px;
+  border-inline-style: solid;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .table-management {
+    display: flex;
+    justify-content: space-between;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+  }
+
+  .table-container {
+    background-color: var(--color-secondary);
+    border-radius: 20px;
+    border-width: 1px;
+    border-style: solid;
+    padding: 0.375rem;
+  }
+}

@@ -1,0 +1,133 @@
+.c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem; // gap-2
+  white-space: nowrap;
+  border-radius: var(--radius-md); // rounded-md
+  font-size: 0.875rem; // text-sm
+  font-weight: 500; // font-medium
+  line-height: 1.4286;
+  transition: all 0.2s ease-in-out; // transition-all
+  cursor: pointer;
+  border: 1px solid transparent; // Borda padrão para variantes como 'outline'
+  outline: none; // outline-none
+
+  // Estilos para estado desabilitado
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  // Estilos para SVG dentro do botão
+  & svg {
+    pointer-events: none;
+    flex-shrink: 0;
+  }
+
+  // Estilos para foco visível
+  &:focus-visible {
+    border-color: var(--color-ring); // focus-visible:border-ring
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-ring) 50%, transparent); // focus-visible:ring-ring/50 focus-visible:ring-[3px]
+  }
+
+  // Variantes
+  &--default {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); // shadow-xs (assumindo um box-shadow pequeno)
+    &:hover {
+      background-color: color-mix(in oklab, var(--color-primary) 90%, black); // hover:bg-primary/90
+    }
+  }
+
+  &--destructive {
+    background-color: color-mix(in oklab, var(--color-destructive) 70%, transparent); // bg-destructive/70
+    color: white; // text-white
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); // shadow-xs
+    &:hover {
+      background-color: color-mix(in oklab, var(--color-destructive) 80%, transparent); // hover:bg-destructive/80
+    }
+    &:focus-visible {
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-destructive) 20%, transparent); // focus-visible:ring-destructive/20
+    }
+  }
+
+  &--outline {
+    border-color: var(--color-border); // border
+    background-color: var(--color-background); // bg-background
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); // shadow-xs
+    &:hover {
+      background-color: var(--color-accent); // hover:bg-accent
+      color: var(--color-accent-foreground); // hover:text-accent-foreground
+    }
+    // dark:border-input
+    html.dark & {
+      border-color: var(--color-input);
+    }
+  }
+
+  &--secondary {
+    background-color: var(--color-secondary); // bg-secondary
+    color: var(--color-secondary-foreground); // text-secondary-foreground
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); // shadow-xs
+    &:hover {
+      background-color: color-mix(in oklab, var(--color-secondary) 80%, transparent); // hover:bg-secondary/80
+    }
+  }
+
+  &--ghost {
+    background-color: transparent;
+    &:hover {
+      background-color: var(--color-accent); // hover:bg-accent
+      color: var(--color-accent-foreground); // hover:text-accent-foreground
+    }
+  }
+
+  &--link {
+    background-color: transparent;
+    color: var(--color-primary); // text-primary
+    text-decoration: underline; // underline
+    text-underline-offset: 4px; // underline-offset-4
+    &:hover {
+      text-decoration: underline; // hover:underline
+    }
+  }
+
+  // Tamanhos
+  &--default-size {
+    height: 2.25rem; // h-9
+    padding: 0.5rem 1rem; // px-4 py-2
+    &:has(> svg) { // has-[>svg]:px-3
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+  }
+
+  &--sm-size {
+    height: 2rem; // h-8
+    border-radius: var(--radius-md); // rounded-md
+    gap: 0.375rem; // gap-1.5
+    padding: 0 0.75rem; // px-3
+    &:has(> svg) { // has-[>svg]:px-2.5
+      padding-left: 0.625rem;
+      padding-right: 0.625rem;
+    }
+  }
+
+  &--lg-size {
+    height: 2.5rem; // h-10
+    border-radius: var(--radius-md); // rounded-md
+    padding: 0 1.5rem; // px-6
+    &:has(> svg) { // has-[>svg]:px-4
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  &--icon-size {
+    width: 2.25rem; // size-9
+    height: 2.25rem; // size-9
+    padding: 0; // icon geralmente não tem padding
+  }
+}

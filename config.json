@@ -1,0 +1,21 @@
+{
+  "tabs": [
+    {
+      "title": "Todos",
+      "value": "all",
+      "initial": true
+    },
+    {
+      "title": "Disponível",
+      "value": "available"
+    },
+    {
+      "title": "Vendido",
+      "value": "sold"
+    },
+    {
+      "title": "Standby",
+      "value": "standby"
+    }
+  ]
+}

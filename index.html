@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Availability Service</title>
+  <link rel="stylesheet" href="/css/globals.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <main>
+    <div class="table-management">
+      <div class="c-tabs" data-config-src="config.json">
+        <div class="c-tabs__list"></div>
+      </div>
+
+      <div class="c-select"
+        data-api-endpoint="http://localhost:3333/api/services"
+        data-param-name="service"
+      >
+        <input type="hidden" class="c-select__input">
+
+        <button type="button" class="c-select__trigger">
+          <span class="c-select__value is-placeholder">Selecione um serviço</span>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="c-select__icon">
+            <path d="m6 9 6 6 6-6"></path>
+          </svg>
+        </button>
+
+        <ul class="c-select__content"></ul>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <div class="draggable">
+        <table class="c-table">
+          <thead>
+            <tr id="table-header-days">
+              <th class="c-table__sticky-cell">
+                <div class="c-table__sticky-cell-content">
+                  Manage Slots
+                </div>
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
