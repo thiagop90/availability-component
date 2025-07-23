@@ -1,11 +1,9 @@
 .c-table {
   width: 100%;
-  // Equivalente a 'border-separate border-spacing-0'
   border-collapse: separate;
   border-spacing: 0;
   user-select: none;
 
-  // Estilos que eram aplicados com [&_th], [&_td], etc.
   th {
     border-bottom: 1px solid var(--color-border);
   }
@@ -18,7 +16,6 @@
     border-bottom: 1px solid var(--color-border);
   }
 
-  // Célula estática e fixa à esquerda
   &__sticky-cell {
     position: sticky;
     left: 0;
@@ -27,52 +24,122 @@
     backdrop-filter: blur(8px);
 
     
-    // As células do header são th, as do body são td.
-    // Aplicamos a borda direita em ambos os casos.
-    &, + td {
+    & {
         border-right: 1px solid var(--color-border);
     }
     
-    // O cabeçalho da tabela também é fixo no topo
+    
     thead tr & {
         top: 0;
-        z-index: 20; // Deve ter um z-index maior que o resto da linha
+        z-index: 20; 
     }
   }
 
   &__sticky-cell-content {
-      width: 200px;
-      padding: 1rem;
+    width: 200px;
+    padding: 1rem;
   }
 
-  // Estilo para a caixinha de cada dia no cabeçalho
+  
   &__day-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;  // size-9
-    height: 2.25rem; // size-9
-    margin: 0 0.125rem; // mx-0.5
+    width: 2.25rem;  
+    height: 2.25rem; 
+    margin: 0 0.125rem; 
     border-radius: var(--radius-md);
     background-color: var(--color-secondary);
 
     span {
-      font-size: 0.75rem; // text-xs
-      font-weight: 600;   // font-semibold
+      font-size: 0.75rem; 
+      font-weight: 600;   
     }
 
-    // Estilo especial para o dia de hoje
+    
     &.is-today {
       background-color: var(--color-primary);
       color: var(--color-primary-foreground);
     }
   }
 
-  // Margens especiais para o primeiro e último dia gerado
+  
   th:nth-child(2) &__day-header {
-    margin-left: 1rem; // ml-4
+    margin-left: 1rem; 
   }
   th:last-child &__day-header {
-    margin-right: 1rem; // mr-4
+    margin-right: 1rem; 
+  }
+
+  &__cell {
+    padding: 0; 
+    vertical-align: middle;
+    text-align: center;
+    height: 2.25rem; 
+  }
+
+  
+  &__cell--month {
+    @extend .c-table__sticky-cell;
+  }
+
+  
+  &__month-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem; 
+    text-transform: capitalize;
+  }
+
+  
+  &__month-name {
+    font-size: 0.875rem; 
+    font-weight: 500; 
+  }
+
+  &__month-indicator {
+    background-color: var(--color-primary);
+    position: absolute;
+    top: 0.5rem; 
+    bottom: 0.5rem; 
+    left: 0;
+    width: 0.25rem; 
+    border-top-right-radius: 0.25rem; 
+    border-bottom-right-radius: 0.25rem; 
+  }
+}
+.c-table__cell--day {
+  padding: 0; // Removemos o padding da célula para o conteúdo preencher
+  vertical-align: middle; // Alinha o conteúdo verticalmente
+
+  // Container interno da célula, replica o 'div' do componente React
+  .c-table__day-content {
+    display: flex;
+    align-items: center;
+    height: 2.25rem; // h-9
+    margin-left: 0.125rem; // mx-0.5
+    margin-right: 0.125rem; // mx-0.5
+
+    // Margem especial para o primeiro e último dia do mês visível
+    &.is-first-day {
+      margin-left: 1rem; // ml-4
+    }
+    &.is-last-day {
+      margin-right: 1rem; // mr-4
+    }
+  }
+
+  // Estilo para o dia atual (hoje)
+  &.is-today .c-table__day-content {
+    background-color: rgba(245, 245, 245, 0.6); // bg-neutral-100/60
+    border-radius: 4px;
+  }
+
+  // Célula vazia (dias que não existem no mês)
+  &.is-empty {
+    background-color: #f5f5f5; // bg-neutral-100
+    pointer-events: none;
   }
 }

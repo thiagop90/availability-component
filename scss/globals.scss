@@ -6,7 +6,11 @@
 @use 'components/tabs';
 @use 'components/badge';
 @use 'components/button';
-@use 'components/manage-slots';
+@use 'components/input';
+@use 'components/label';
+@use 'components/slot-manager';
+@use 'components/dialog';
+@use 'components/toast';
 
 :root {
   --color-background: oklch(1 0 0);
@@ -55,3 +59,7 @@ input {
   font-family: inherit;
   border: none;
 }
+
+// body.has-dialog-open {
+//   overflow: hidden;
+// }

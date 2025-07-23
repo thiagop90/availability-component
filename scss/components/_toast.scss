@@ -1,0 +1,88 @@
+// Container principal que ficará fixo na tela
+.c-toaster {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 100;
+  pointer-events: none; // Permite cliques através do container
+}
+
+// O toast individual
+.c-toast {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 380px;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--normal-border, var(--color-border));
+  background-color: var(--normal-bg, var(--color-popover));
+  color: var(--normal-text, var(--color-popover-foreground));
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  pointer-events: auto; // Torna o toast clicável
+  animation: toast-enter 0.3s ease-out;
+
+  &.is-hiding {
+    animation: toast-exit 0.3s ease-in forwards;
+  }
+
+  &--success {
+    .c-toast__icon { color: var(--color-success); }
+  }
+  
+  &--error {
+    .c-toast__icon { color: var(--color-destructive); }
+  }
+}
+
+.c-toast__icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.c-toast__content {
+  flex-grow: 1;
+}
+
+.c-toast__title {
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+
+.c-toast__description {
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+  line-height: 1.4;
+  margin-top: 0.25rem;
+}
+
+// Animações
+@keyframes toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toast-exit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}

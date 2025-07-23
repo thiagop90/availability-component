@@ -9,7 +9,7 @@
     "watch:scss": "sass --watch scss:public/css"
   },
   "keywords": [],
-  "author": "Thiago Pereira",
+  "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {

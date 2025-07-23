@@ -1,4 +1,4 @@
-export function daysHeader($table) {
+export function createDaysHeader($table) {
   const $headerRow = $table.find('thead tr#table-header-days')
   if ($headerRow.length === 0 || $headerRow.data('days')) return
 

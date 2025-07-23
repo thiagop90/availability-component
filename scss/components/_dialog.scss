@@ -1,0 +1,108 @@
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+
+  &.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.dialog-content {
+  background-color: var(--color-secondary);
+  border-radius: 18px;
+  border: 1px solid var(--color-border);
+  padding: 6px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 320px;
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+
+  .dialog-overlay.show & {
+    transform: scale(1);
+  }
+
+  .dialog-inner {
+    background-color: var(--color-background);
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+
+  &--delete {
+    max-width: 350px;
+  }
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px;
+
+  .dialog-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.dialog-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dialog-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  border-top: 1px solid var(--color-border);
+  padding: 12px;
+}
+
+.c-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid;
+  border-radius: var(--radius-sm);
+  border-color: var(--color-destructive);
+  background-color: color-mix(in oklab, var(--color-destructive) 10%, transparent);
+
+  &__icon { 
+    width: 20px; 
+    height: 20px;   
+    color: var(--color-destructive);
+  }
+
+  &__text {
+    p {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    span {
+      font-size: 0.75rem;
+      line-height: 1rem;
+      color: var(--color-destructive)
+    }
+  }
+}

@@ -1,4 +1,4 @@
-export function scrollToToday($table) {
+export function initializeScrollToToday($table) {
   const $scrollContainer = $table.closest('.draggable')
   const $todayCell = $table.find('.c-table__day-header.is-today')
   const $stickyCell = $table.find('.c-table__sticky-cell')

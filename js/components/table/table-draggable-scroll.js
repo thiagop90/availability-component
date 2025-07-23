@@ -1,4 +1,4 @@
-export function draggableScroll($table) {
+export function initializeDraggableScroll($table) {
   const $draggableElement = $table.closest('.draggable')
   if ($draggableElement.length === 0) return
 
